@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.statis.statis.mapper.db.ContentCountMapper">
+   <select id="selectContentCountPage"  resultType="contentCount">
+     select id,contentCode,contentName,contentType,truePageViewCount,fakePageViewCount,creater,online,onlineTime
+      from content_account c
+      where 1 =1
+      <if test="contentType !=null and contentType !=''">
+       and contentType =#{contentType}
+      </if>
+      <if test="name != null and name != ''">
+        and online = #{name}
+      </if>
+      <if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+     and c.onlineTime between #{beginTime} and #{endTime}
+     </if>
+   </select>
+</mapper>
