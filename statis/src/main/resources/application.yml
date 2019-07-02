@@ -1,0 +1,23 @@
+server:  port: 8090mybatis:  type-aliases-package: com.statis.statis.model  config-location: classpath:mapper/*.xml
+spring:
+  aop:
+      proxy-target-class: true
+      auto: true
+  datasource:
+    druid:
+      db1:
+        url: jdbc:mysql://www.wxapi.shop:3306/db1?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+      db2:
+        url: jdbc:mysql://www.wxapi.shop:3306/db2?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20      statis:        url: jdbc:mysql://www.wxapi.shop:3306/statis?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull        username: root        password: 123456        driver-class-name: com.mysql.cj.jdbc.Driver        initialSize: 5        minIdle: 5        maxActive: 20
