@@ -25,7 +25,7 @@ public class CronLogicService {
 	private DialingMapper dialingMapper;
 	
 	 
-	@Scheduled(cron = "0 */3 * * * ?")
+	@Scheduled(cron = "0 */10 * * * ?")
 	public void  cronLogic() {
 		//清空链接缓存和数据库表
 		System.out.println(activeMQQueueProducer.getPathMap().size());
