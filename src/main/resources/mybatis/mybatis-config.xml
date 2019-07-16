@@ -15,10 +15,12 @@
     
     <typeAliases>
          <typeAlias type="com.statis.statis.model.User" alias="user" />
+         <typeAlias type="com.statis.statis.model.DialingTest" alias="dialing" />
     </typeAliases>
     
     <mappers>
          <mapper resource="mapper/user.xml" />
+         <mapper resource="mapper/dialing.xml" />
     </mappers>
 
 </configuration>

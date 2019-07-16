@@ -71,6 +71,31 @@
   <groupId>org.springframework.boot</groupId> 
   <artifactId>spring-boot-starter-aop</artifactId> 
   </dependency>
+  
+  <!-- activemq消息中间件 -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-activemq</artifactId>
+</dependency>
+    
+    <dependency>
+		   <groupId>org.apache.httpcomponents</groupId>
+		   <artifactId>httpclient</artifactId>
+		</dependency>
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.58</version>
+</dependency>
+	  <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.15.9</version>
+        </dependency> 
+            <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -78,6 +103,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+				<uriEncoding>utf-8</uriEncoding> 
+				</configuration>
 			</plugin>
             <plugin>
                <groupId>com.spotify</groupId>

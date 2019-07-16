@@ -41,7 +41,7 @@ public class PagePlugin implements Interceptor {
 
 	@SuppressWarnings("unchecked")
 	public Object intercept(Invocation ivk) throws Throwable {
-        System.out.print("执行拦截器");
+        //System.out.print("执行拦截器");
 		if (ivk.getTarget() instanceof RoutingStatementHandler) {
 			RoutingStatementHandler statementHandler = (RoutingStatementHandler) ivk
 					.getTarget();
