@@ -13,10 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class PatternTest {
 	 @Test
 	public void test() {
-		 String str = "http://183.224.6.2:7095/epg/api/vod/35100001000000011560418896619209.json";
-		 Pattern p = Pattern.compile(".*/series/.*");
-		 Matcher m = p.matcher(str);
-		 boolean isValid = m.matches();
-		 System.out.println(isValid);
+//		 String str = "http://183.224.6.2:7095/epg/api/vod/35100001000000011560418896619209.json";
+//		 Pattern p = Pattern.compile(".*/series/.*");
+//		 Matcher m = p.matcher(str);
+//		 boolean isValid = m.matches();
+//		 System.out.println(isValid);
+		 int page = (int)Math.ceil(Double.valueOf(58363)/10000);
+		 System.out.println(page);
 	}
 }

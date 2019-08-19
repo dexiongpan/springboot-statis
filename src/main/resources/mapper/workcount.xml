@@ -3,16 +3,54 @@
 <mapper namespace="com.statis.statis.mapper.db.WorkCountMapper">
 
 <select id="getWorkCountListPage"  parameterType="java.lang.String" resultType="workCount">
-     SELECT id,publishedName,pageViewCount,publishedCount,onlineTime 
-     FROM work_account w
-     <where>
-     <if test="name != null and name != ''">
-      and  w.publishedName = #{name}
+   SELECT
+	  creater as publishedName,
+	  sum( countNum ) as publishedCount,
+	  sum( viewCount )  as pageViewCount
+FROM
+	(
+SELECT
+	creater,
+	count( creater ) AS countNum,
+	sum( truePageViewCount ) AS viewCount,
+	edit_mode 
+FROM
+	content_account 
+WHERE
+	 STATUS = 0 
+	AND enable_status = 1 
+	AND audit_status = 2 
+	AND edit_mode = '自主编辑' 
+	<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+     and onlineTime between #{beginTime} and #{endTime}
+     </if> 
+       <if test="name != null and name != ''">
+      and  creater = #{name}
      </if>
-     <if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
-     and w.onlineTime between #{beginTime} and #{endTime}
+GROUP BY creater 
+UNION ALL
+SELECT ONLINE
+	,
+	count( ONLINE ) AS countNum,
+	sum( truePageViewCount ) AS viewCount,
+	edit_mode 
+FROM
+	content_account 
+WHERE
+	 STATUS = 0 
+	AND enable_status = 1 
+	AND audit_status = 2 
+	AND edit_mode = '资源库选取' 
+		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+       and  onlineTime between #{beginTime} and #{endTime}
+     </if> 
+      <if test="name != null and name != ''">
+      and  ONLINE = #{name}
      </if>
-     </where>
+GROUP BY  ONLINE
+	) AS a 	
+GROUP BY
+	a.creater
    </select>
    
    

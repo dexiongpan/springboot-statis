@@ -8,6 +8,8 @@ public class SingletonDestination {
 	private volatile static Destination requestDestination;
 	private volatile static Destination verifyDestination;
 	private volatile static Destination dbDestination;
+	private volatile static Destination statisContentDestination; 
+	private volatile static Destination extractLogDestination; 
     public static Destination getRequestDestination() {  
     if (requestDestination == null) {  
         synchronized (Destination.class) {  
@@ -41,4 +43,25 @@ public class SingletonDestination {
     return verifyDestination;  
     }
     
+    public static Destination getContentDestination() {  
+    if (statisContentDestination == null) {  
+        synchronized (Destination.class) {  
+        if (statisContentDestination == null) {  
+        	statisContentDestination = new ActiveMQQueue(ActiveMQQueueConst.QUEUE_NAME_STATIS_COTENT);  
+        }  
+        }  
+    }  
+    return statisContentDestination;  
+    }
+    
+    public static Destination getExtractLogDestination() {  
+    if (extractLogDestination == null) {  
+        synchronized (Destination.class) {  
+        if (extractLogDestination == null) {  
+        	extractLogDestination = new ActiveMQQueue(ActiveMQQueueConst.QUEUE_NAME_EXTRACT_LOG);  
+        }  
+        }  
+    }  
+    return extractLogDestination;  
+    }
 }

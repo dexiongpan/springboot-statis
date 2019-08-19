@@ -16,7 +16,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.statis.statis.activemq.ActiveMQQueueConst;
 import com.statis.statis.activemq.DestinationFactory;
-import com.statis.statis.activemq.polling.producer.GroupQueueSender;
 import com.statis.statis.util.EmptyUtil;
 import com.statis.statis.vo.MessageData;
 import com.statis.statis.vo.ResultData;
@@ -28,8 +27,8 @@ public class ActiveMQQueueProducer {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
     private  ConcurrentMap<String, String> pathMap = new ConcurrentHashMap<>();
-    @Autowired
-    private GroupQueueSender groupQueueSender;
+//    @Autowired
+//    private GroupQueueSender groupQueueSender;
     /** 
      * 发送队列消息
      * @param destinationName 消息目的地标识

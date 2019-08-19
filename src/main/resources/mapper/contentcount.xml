@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.statis.statis.mapper.db.ContentCountMapper">
+
+   <resultMap id="contentMap" type="com.statis.statis.model.ContentCount">
+    <result column="CONTENT_CODE"   property="contentCode" />
+    <result column="TITLE"  property="contentName" />
+    <result column="CONTENT_TYPE"  property="contentType" />
+    <result column="click_times"  property="truePageViewCount" />
+    <result column="virtual_click_times"  property="fakePageViewCount" />
+    <result column="online_date"  property="onlineTime" />
+   </resultMap> 
+    
+    
+   <resultMap id="contentbaseMap" type="com.statis.statis.model.ContentCount">
+    <result column="edit_mode"  property="edit_mode" />
+    <result column="status"  property="status" />
+    <result column="enable_status"  property="enable_status" />
+    <result column="audit_status"  property="audit_status" />
+    <result column="name"  property="creater" />
+   </resultMap> 
+    
+    
+    
    <select id="selectContentCountPage"  resultType="contentCount">
      select id,contentCode,contentName,contentType,truePageViewCount,fakePageViewCount,creater,online,onlineTime
       from content_account c
@@ -15,4 +36,67 @@
      and c.onlineTime between #{beginTime} and #{endTime}
      </if>
    </select>
+   
+   <select id="selectepgContentPage"  resultMap="contentMap">
+    SELECT
+	  ec.CONTENT_CODE,
+	  ec.TITLE,
+	  ec.CONTENT_TYPE,
+	  ec.click_times,
+	  ec.virtual_click_times,
+	  ec.online_date 
+    FROM
+	  sef_epg_content ec
+   </select>
+   
+   
+   
+   <select id="getNameByCode"  resultMap="contentbaseMap">
+     select op.name,ba.edit_mode,ba.status,ba.enable_status,ba.audit_status from se_cms_content_base ba INNER JOIN se_sys_operator op  
+       ON ba.creater_id = op.user_id
+     where ba.code=#{code}
+       Union All
+     select op.name,ba.edit_mode,ba.status,ba.enable_status,ba.audit_status from se_cms_content_base ba INNER JOIN se_sys_operator op  
+       ON  ba.onliner_user_id = op.user_id
+     where ba.code=#{code};
+   </select>
+   
+   
+   <insert id ="insert" useGeneratedKeys="true" keyProperty="id">
+      <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+             select replace(uuid(),'-','') from dual
+      </selectKey>
+     insert into  content_account (
+                     id,
+	                 creater,
+                     online,
+                     contentType,
+                     onlineTime,
+                     truePageViewCount,
+                     fakePageViewCount,
+                     contentCode,
+                     contentName,
+                     edit_mode,
+                     status,
+                     enable_status,
+                     audit_status
+                     )
+                     
+                   values(
+                     #{id},
+                     #{creater},
+                     #{online},
+                     #{contentType},
+                     #{onlineTime},
+                     #{truePageViewCount},
+                     #{fakePageViewCount},
+                     #{contentCode},
+                     #{contentName},
+                     #{edit_mode},
+                     #{status},
+                     #{enable_status},
+                     #{audit_status}
+                   )
+   </insert>
+   
 </mapper>

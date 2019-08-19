@@ -31,17 +31,17 @@ public class DataSourceConfig {
 	    @Autowired
         private PagePlugin pageInterceptor;
 	
-	    @Bean(name = "db1")
-	    @ConfigurationProperties(prefix = "spring.datasource.druid.db1")
-	    public DataSource db1() {
-	    	 DruidDataSource dataSource = new DruidDataSource();
+	    @Bean(name = "epg")
+	    @ConfigurationProperties(prefix = "spring.datasource.druid.epg")
+	    public DataSource epg() {
+	    	 DruidDataSource dataSource = new EpgSSHDataSource();
 	        return dataSource;
 	    }
 
-	    @Bean(name = "db2")
-	    @ConfigurationProperties(prefix = "spring.datasource.druid.db2")
-	    public DataSource db2() {
-	    	 DruidDataSource dataSource = new DruidDataSource();
+	    @Bean(name = "mobile")
+	    @ConfigurationProperties(prefix = "spring.datasource.druid.mobile")
+	    public DataSource mobile() {
+	    	 DruidDataSource dataSource = new MobileSSHDataSource();
 		        return dataSource;
 	    }
 
@@ -59,13 +59,13 @@ public class DataSourceConfig {
 	     * @return
 	     */
 	    @Bean
-	    public DataSource multipleDataSource(@Qualifier("db1") DataSource db1,
-	                                         @Qualifier("db2") DataSource db2,
+	    public DataSource multipleDataSource(@Qualifier("epg") DataSource epg,
+	                                         @Qualifier("mobile") DataSource mobile,
 	                                         @Qualifier("statis") DataSource statis) {
 	        DynamicDataSource dynamicDataSource = new DynamicDataSource();
 	        Map<Object, Object> targetDataSources = new HashMap<>();
-	        targetDataSources.put(DBTypeEnum.db1.getValue(), db1);
-	        targetDataSources.put(DBTypeEnum.db2.getValue(), db2);
+	        targetDataSources.put(DBTypeEnum.epg.getValue(), epg);
+	        targetDataSources.put(DBTypeEnum.mobile.getValue(), mobile);
 	        targetDataSources.put(DBTypeEnum.statis.getValue(), statis);
 	        dynamicDataSource.setTargetDataSources(targetDataSources);
 	        dynamicDataSource.setDefaultTargetDataSource(statis);
@@ -77,8 +77,9 @@ public class DataSourceConfig {
 	    public SqlSessionFactory sqlSessionFactory() throws Exception {
 	        SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 	        sqlSessionFactory.setPlugins(new Interceptor[]{pageInterceptor});
-	        sqlSessionFactory.setDataSource(multipleDataSource(db1(), db2(),statis()));
+	        sqlSessionFactory.setDataSource(multipleDataSource(epg(), mobile(),statis()));
 //	        sqlSessionFactory.setVfs(SpringBootVFS.class);
+	        
 	        sqlSessionFactory.setTypeAliasesPackage("com.statis.statis.model");
 	        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*.xml"));
 	        return sqlSessionFactory.getObject();
@@ -86,6 +87,6 @@ public class DataSourceConfig {
 	    
 	    @Bean
 	    public PlatformTransactionManager transactionManager() {
-	        return new DataSourceTransactionManager(multipleDataSource(db1(), db2(),statis()));
+	        return new DataSourceTransactionManager(multipleDataSource(epg(), mobile(),statis()));
 	    }
 }

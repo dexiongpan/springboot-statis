@@ -1,5 +1,6 @@
 package com.statis.statis.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -7,12 +8,13 @@ import org.apache.ibatis.type.Alias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Alias("contentCount")
-public class ContentCount {
+public class ContentCount  implements Serializable{
   
+	private static final long serialVersionUID = 1L;
+
 	private String id;
 
 	private String contentCode;
-   
 	private String contentName;
 	private  String contentType;
 	private int truePageViewCount;
@@ -21,6 +23,38 @@ public class ContentCount {
 	private String online;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Date onlineTime;
+	
+	//审核状态、编辑类型
+	private String edit_mode;
+	private int status;
+	private int enable_status;
+	private int audit_status;
+	
+	
+	public String getEdit_mode() {
+		return edit_mode;
+	}
+	public void setEdit_mode(String edit_mode) {
+		this.edit_mode = edit_mode;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getEnable_status() {
+		return enable_status;
+	}
+	public void setEnable_status(int enable_status) {
+		this.enable_status = enable_status;
+	}
+	public int getAudit_status() {
+		return audit_status;
+	}
+	public void setAudit_status(int audit_status) {
+		this.audit_status = audit_status;
+	}
 	public String getId() {
 		return id;
 	}

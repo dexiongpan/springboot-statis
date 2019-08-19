@@ -45,5 +45,36 @@ public class ContentCountController {
 	 
  }
  
+  @RequestMapping("/content/epg/list")
+ public PageResult<ContentCount> getEpgContent(){
+		int pageSize = 10000;
+		int currentPage = 0;
+		
+		if(pageSize<0) {
+			pageSize = 20;
+		}
+		if (currentPage <= 0) {
+			currentPage = 1;
+		}
+		
+		int currentResult = (currentPage - 1) * pageSize;
+		Page page = new Page();
+		page.setShowCount(pageSize);
+		page.setCurrentResult(currentResult);
+		List<ContentCount> contentCounts=contentCountService.getEpgContent(page);
+		int totalCount = page.getTotalResult();
+	    PageResult<ContentCount> pageResult = new PageResult<ContentCount>();
+		pageResult.setData(contentCounts);
+		pageResult.setTotalCount(totalCount);
+		return pageResult;
+  }
   
+  @RequestMapping("/content/epg/name")
+ public PageResult<ContentCount> getEpgContentName(@RequestParam(value="name",required = false) String code){
+	  System.out.println(code);
+	  List<ContentCount> resultList = contentCountService.getEpgName(code);
+	  PageResult<ContentCount> pageResult = new PageResult<ContentCount>();
+		pageResult.setData(resultList);
+		return pageResult;
+  }
 }

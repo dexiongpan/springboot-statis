@@ -1,23 +1,23 @@
 server:  port: 8090mybatis:  type-aliases-package: com.statis.statis.model  config-location: classpath:mapper/*.xml
-spring:  activemq:    user: admin    password: admin    broker-url: tcp://47.106.83.36:61616?jms.prefetchPolicy.queuePrefetch=100    packages:      trust-all: true
+spring:  activemq:    user: admin    password: admin    broker-url: tcp://127.0.0.1:61616?jms.prefetchPolicy.queuePrefetch=100    packages:      trust-all: true
   aop:
       proxy-target-class: true
       auto: true
   datasource:
     druid:
-      db1:
-        url: jdbc:mysql://www.wxapi.shop:3306/db1?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-        username: root
-        password: 123456
+      epg:
+        url: jdbc:mysql://127.0.0.1:3307/sef_micro_yn_rel?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: chances
+        password: YnYs@2019ott
         driver-class-name: com.mysql.cj.jdbc.Driver
         initialSize: 5
         minIdle: 5
         maxActive: 20
-      db2:
-        url: jdbc:mysql://www.wxapi.shop:3306/db2?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-        username: root
-        password: 123456
+      mobile:
+        url: jdbc:mysql://127.0.0.1:3308/se_micro_yn?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: chances
+        password: YnYs@2019ott
         driver-class-name: com.mysql.cj.jdbc.Driver
         initialSize: 5
         minIdle: 5
-        maxActive: 20      statis:        url: jdbc:mysql://47.106.83.36:3306/statis?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull        username: root        password: 123456        driver-class-name: com.mysql.cj.jdbc.Driver        initialSize: 5        minIdle: 5        maxActive: 20
+        maxActive: 20      statis:        url: jdbc:mysql://127.0.0.1:3306/statis?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull        username: root        password: 123456        driver-class-name: com.mysql.cj.jdbc.Driver        initialSize: 5        minIdle: 5        maxActive: 20
