@@ -103,7 +103,6 @@
     <version>0.1.55</version>
 </dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			 <plugin>
@@ -220,6 +219,5 @@
                </configuration>
              </plugin> 
 		</plugins>
-	</build>
 	</build>
 </project>
